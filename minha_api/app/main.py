@@ -45,6 +45,7 @@ def get_item(item_id: int):
     )
 
 
+# endpoint de criacao de novos items
 @app.post("/items")
 def create_items(item: ItemCreate):
     new_id = len(items) + 1
@@ -55,3 +56,17 @@ def create_items(item: ItemCreate):
     }
     items.append(new_item)
     return new_item
+
+
+# endpoit de remocao de item
+@app.delete("/items/{item_id}")
+def remove_item(item_id: int):
+    for item in items:
+        if item["id"] == item_id:
+            items.remove(item)
+            return {"message": "Item Removido Corretamente"}
+
+    raise HTTPException(
+        status_code=404,
+        detail="Nao foi possivel remover item"
+    )
