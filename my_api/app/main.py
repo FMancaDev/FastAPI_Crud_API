@@ -41,7 +41,7 @@ def get_item(item_id: int):
 
     raise HTTPException(
         status_code=404,
-        detail="item nao encontrado"
+        detail="Item Not Found"
     )
 
 
@@ -64,7 +64,7 @@ def remove_item(item_id: int):
     for item in items:
         if item["id"] == item_id:
             items.remove(item)
-            return {"message": "Item Removido Corretamente"}
+            return {"message": "Item Remove Correctly"}
 
     raise HTTPException(
         status_code=404,
@@ -73,11 +73,12 @@ def remove_item(item_id: int):
 
 
 # endpoint de update de item
-@app.put("/item/{item_id}")
-def update_item(item_id: int):
+@app.put("/items/{item_id}")
+def update_item(item_id: int, update_item: ItemCreate):
     for item in items:
         if item["id"] == item_id:
-            items.update(item)
+            item["name"] = update_item.name
+            return item
 
     raise HTTPException(
         status_code=404,

@@ -1,5 +1,4 @@
 VENV = venv
-
 PYTHON = $(VENV)/bin/python
 PIP = $(VENV)/bin/pip
 
@@ -13,8 +12,10 @@ install: $(VENV)
 	$(PIP) install fastapi "uvicorn[standard]"
 
 run:
-	$(VENV)/bin/uvicorn main:app --reload
+	$(VENV)/bin/uvicorn my_api.app.main:app --reload
 
-# Limpar venv
+freeze:
+	$(PIP) freeze > my_api/requirements.txt
+
 clean:
 	rm -rf $(VENV)
