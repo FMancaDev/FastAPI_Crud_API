@@ -70,3 +70,16 @@ def remove_item(item_id: int):
         status_code=404,
         detail="Nao foi possivel remover item"
     )
+
+
+# endpoint de update de item
+@app.put("/item/{item_id}")
+def update_item(item_id: int):
+    for item in items:
+        if item["id"] == item_id:
+            items.update(item)
+
+    raise HTTPException(
+        status_code=404,
+        detail="Cannot Update Item"
+    )
