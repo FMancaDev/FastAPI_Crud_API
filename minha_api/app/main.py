@@ -43,3 +43,15 @@ def get_item(item_id: int):
         status_code=404,
         detail="item nao encontrado"
     )
+
+
+@app.post("/items")
+def create_items(item: ItemCreate):
+    new_id = len(items) + 1
+
+    new_item = {
+        "id": new_id,
+        "name": item.name
+    }
+    items.append(new_item)
+    return new_item
