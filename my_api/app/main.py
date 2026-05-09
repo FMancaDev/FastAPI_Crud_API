@@ -25,6 +25,8 @@ items = [
     {"id": 5, "name": "Teclado"}
 ]
 
+next_id = 6
+
 
 # endpoint da lista - responde a GET e devolve a lista toda
 @app.get("/items")
@@ -48,13 +50,14 @@ def get_item(item_id: int):
 # endpoint de criacao de novos items
 @app.post("/items")
 def create_items(item: ItemCreate):
-    new_id = len(items) + 1
+    global next_id
 
     new_item = {
-        "id": new_id,
+        "id": next_id,
         "name": item.name
     }
     items.append(new_item)
+    next_id += 1
     return new_item
 
 
